@@ -1,27 +1,28 @@
 import tkinter as tk
 ventana=tk.Tk()
 ventana.title("Camacho Zamora Adrian Eduardo-Calculadora")
+ventana.resizable(0,0)
 
 #Numeros del 0 al 9
 def concatenar(valor):
     if entrada.get()!="0":
-        entrada.config(text=entrada.get()+valor)
+        entrada.insert(text=entrada.get()+valor)
     else:
-        entrada.config(text=valor)
+        entrada.insert(text=valor)
 
 #Poner el .
 def ponpunto():
     if entrada.get().find(".")==-1:
-        entrada.config(text=entrada.get()+".")
+        entrada.insert(text=entrada.get()+".")
 
 #Poner el signo +/-
 def cambiarsigno(valor):
     vl=float(valor)*-1
-    entrada.config(text=str(vl))
+    entrada.insert(text=str(vl))
 
 #Poner boton C
 def limpiar():
-    entrada.config(text="0")
+    entrada.insert("0")
 
 #Poner boton CE
 def limpiarTodo():
@@ -32,9 +33,10 @@ def limpiarTodo():
 def quitar():
     txt=entrada.get()
     txt=txt[:len(txt)-1]
-    entrada.config(text=txt)
+    entrada.insert(txt)
 
-entrada=tk.Entry(ventana, width=16, font=("Arial", 24), borderwidth=2, relief="solid", justify="right")
+entrada=tk.Entry(ventana,text="0", width=16, font=("Arial", 24), borderwidth=2, relief="solid", justify="right")
+entrada.insert(0,"0")
 entrada.grid(row=0, column=0, columnspan=4)
 
 ventana.grid_rowconfigure(8, weight=1)
@@ -75,7 +77,7 @@ btnMas=tk.Button(ventana, text="+", width=10, height=3 ).grid (row=8, column=3, 
 btnMasMenos=tk.Button(ventana, text="+/-", width=10, height=3,command=lambda:cambiarsigno() ).grid (row=9, column=0, columnspan=1, padx=2, pady=1)
 btn0=tk.Button(ventana, text="0", width=10, height=3,command=lambda:concatenar("0") ).grid (row=9, column=1, columnspan=1)
 btnPunto=tk.Button(ventana, text=".", width=10, height=3,command=lambda:ponpunto() ).grid (row=9, column=2, columnspan=1)
-btnIgual=tk.Button(ventana, text="=", width=10, height=3 ).grid (row=9, column=3, columnspan=1)
+btnIgual=tk.Button(ventana, text="=", width=10, height=3,bg="blue" ).grid (row=9, column=3, columnspan=1)
 
 
 
