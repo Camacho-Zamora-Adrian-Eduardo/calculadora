@@ -6,39 +6,45 @@ ventana.resizable(0,0)
 #Numeros del 0 al 9
 def concatenar(valor):
     if entrada.get()!="0":
-        entrada.insert(text=entrada.get()+valor)
+        
+        entrada.insert(tk.END,valor)
     else:
-        entrada.insert(text=valor)
+        entrada.delete(0,tk.END)
+        entrada.insert(tk.END,valor)
 
 #Poner el .
 def ponpunto():
     if entrada.get().find(".")==-1:
-        entrada.insert(text=entrada.get()+".")
+        entrada.insert((tk.END),".")
 
 #Poner el signo +/-
 def cambiarsigno(valor):
     vl=float(valor)*-1
-    entrada.insert(text=str(vl))
+    entrada.delete(0,tk.END)
+    entrada.insert("end",str(vl))
 
 #Poner boton C
 def limpiar():
-    entrada.insert("0")
+    global result
+    
+    entrada.delete(0, tk.END)
+    entrada.insert("end","0")
 
 #Poner boton CE
 def limpiarTodo():
-    limpiar()
-    result="0"
+    entrada.delete(0, tk.END)
+    entrada.insert("end","0")
 
 #Poner boton Del
 def quitar():
     txt=entrada.get()
     txt=txt[:len(txt)-1]
-    entrada.insert(txt)
+    entrada.insert("end",txt)
 
-entrada=tk.Entry(ventana,text="0", width=16, font=("Arial", 24), borderwidth=2, relief="solid", justify="right")
+entrada=tk.Entry(ventana, width=16, font=("Arial", 24), borderwidth=2, relief="solid", justify="right",state="normal")
 entrada.insert(0,"0")
 entrada.grid(row=0, column=0, columnspan=4)
-
+text=""
 ventana.grid_rowconfigure(8, weight=1)
 ventana.grid_columnconfigure(8, weight=1)
 
