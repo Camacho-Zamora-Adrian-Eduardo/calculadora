@@ -7,21 +7,34 @@ resultado=0
 signo=" "
 
 def calcula(valor,operacion):
+    global resultado
+    
+    if resultado==0.0 and operacion != "=":
+        resultado=float(valor)
+        
+    
+    
     if (operacion=="+"):
         resultado=float(resultado)+float(valor)
+        entrada.delete(0,tk.END)
+        entrada.insert(tk.END,resultado)
+
     else:
         if (operacion=="-"):
             resultado=float(resultado)-float(valor)
+            entrada.delete(0,tk.END)
+            entrada.insert(tk.END,resultado)
         else:
             if (operacion=="*"):
                 resultado=float(resultado)*float(valor)
+                entrada.delete(0,tk.END)
+                entrada.insert(tk.END,resultado)
             else:
                 if (operacion=="/"):
                     resultado=float(resultado)/float(valor)
-                else:
-                    resultado=float(valor)
                     entrada.delete(0,tk.END)
                     entrada.insert(tk.END,resultado)
+
 
 #Numeros del 0 al 9
 def concatenar(valor):
@@ -89,17 +102,17 @@ btngato=tk.Button(ventana, text="#", width=10, height=3,command=lambda:quitar() 
 btn1X=tk.Button(ventana, text="1/X", width=10, height=3 ).grid (row=5, column=0, columnspan=1, padx=2, pady=1)
 btnX2=tk.Button(ventana, text="X2", width=10, height=3 ).grid (row=5, column=1, columnspan=1)
 btn2X=tk.Button(ventana, text="2√X", width=10, height=3 ).grid (row=5, column=2, columnspan=1)
-btnentre=tk.Button(ventana, text="/", width=10, height=3,command=lambda:calcula("/") ).grid (row=5, column=3, columnspan=1)
+btnentre=tk.Button(ventana, text="/", width=10, height=3,command=lambda:calcula(entrada.get(),"/") ).grid (row=5, column=3, columnspan=1)
 
 btn7=tk.Button(ventana, text="7", width=10, height=3,command=lambda:concatenar("7") ).grid (row=6, column=0, columnspan=1, padx=2, pady=1)
 btn8=tk.Button(ventana, text="8", width=10, height=3,command=lambda:concatenar("8") ).grid (row=6, column=1, columnspan=1)
 btn9=tk.Button(ventana, text="9", width=10, height=3,command=lambda:concatenar("9") ).grid (row=6, column=2, columnspan=1)
-btnX=tk.Button(ventana, text="X", width=10, height=3,command=lambda:calcula("*") ).grid (row=6, column=3, columnspan=1)
+btnX=tk.Button(ventana, text="X", width=10, height=3,command=lambda:calcula(entrada.get(),"*") ).grid (row=6, column=3, columnspan=1)
 
 btn4=tk.Button(ventana, text="4", width=10, height=3,command=lambda:concatenar("4") ).grid (row=7, column=0, columnspan=1, padx=2, pady=1)
 btn5=tk.Button(ventana, text="5", width=10, height=3,command=lambda:concatenar("5") ).grid (row=7, column=1, columnspan=1)
 btn6=tk.Button(ventana, text="6", width=10, height=3,command=lambda:concatenar("6") ).grid (row=7, column=2, columnspan=1)
-btnMenos=tk.Button(ventana, text="-", width=10, height=3,command=lambda:calcula("-") ).grid (row=7, column=3, columnspan=1)
+btnMenos=tk.Button(ventana, text="-", width=10, height=3,command=lambda:calcula(entrada.get(),"-") ).grid (row=7, column=3, columnspan=1)
 
 btn1=tk.Button(ventana, text="1", width=10, height=3,command=lambda:concatenar("1") ).grid (row=8, column=0, columnspan=1, padx=2, pady=1)
 btn2=tk.Button(ventana, text="2", width=10, height=3,command=lambda:concatenar("2") ).grid (row=8, column=1, columnspan=1)
