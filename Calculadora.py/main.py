@@ -1,39 +1,49 @@
 import tkinter as tk
-ventana=tk.Tk()
-ventana.title("Camacho Zamora Adrian Eduardo-Calculadora")
-ventana.resizable(0,0)
 
-resultado=0
-signo=" "
+resultado=0.0
+signo=""
+memoria=0.0
 
-def calcula(valor,operacion):
-    global resultado
+def calcula(valor, operacion):
+    global resultado, signo
     
     if resultado==0.0 and operacion != "=":
         resultado=float(valor)
-        
-    
-    
-    if (operacion=="+"):
-        resultado=float(resultado)+float(valor)
         entrada.delete(0,tk.END)
-        entrada.insert(tk.END,resultado)
-
+        entrada.insert(tk.END,"0")
+        signo=operacion
+        return
+    
+    if (signo=="+"):
+        resultado += float(valor)
     else:
-        if (operacion=="-"):
-            resultado=float(resultado)-float(valor)
-            entrada.delete(0,tk.END)
-            entrada.insert(tk.END,resultado)
+        if (signo=="-"):
+            resultado-=float(valor)
         else:
-            if (operacion=="*"):
-                resultado=float(resultado)*float(valor)
-                entrada.delete(0,tk.END)
-                entrada.insert(tk.END,resultado)
+            if (signo=="*"):
+                resultado*=float(valor)
             else:
-                if (operacion=="/"):
-                    resultado=float(resultado)/float(valor)
-                    entrada.delete(0,tk.END)
-                    entrada.insert(tk.END,resultado)
+                if (signo=="/"):
+                    if (valor > 0):
+                        resultado/=float(valor)
+                    else:
+                        entrada.delete(0,tk.END)
+                        entrada.insert(tk.END,"Error")
+                        resultado=0.0
+                        return
+          
+    
+    if operacion=="=":
+        entrada.delete(0,tk.END)
+        entrada.insert(tk.END,str(resultado))
+        resultado=0.0
+        signo="" 
+    else:
+        signo=operacion
+        entrada.delete(0,tk.END)
+        entrada.insert(tk.END, "2")  
+                 
+
 
 
 #Numeros del 0 al 9
@@ -58,7 +68,7 @@ def cambiarsigno():
 
 #Poner boton C
 def limpiar():
-    global result
+    global resultado
     
     entrada.delete(0, tk.END)
     entrada.insert(tk.END,"0")
@@ -75,11 +85,13 @@ def quitar():
     entrada.delete(0,tk.END)
     entrada.insert(tk.END,txt)
 
+
+
+ventana=tk.Tk()
+ventana.title("Camacho Zamora Adrian Eduardo-Calculadora")
+ventana.resizable(0,0)
+
 #Poner boton potencia
-
-
-
-
 entrada=tk.Entry(ventana, width=16, font=("Arial", 24), borderwidth=2, relief="solid", justify="right",state="normal")
 entrada.insert(0,"0")
 entrada.grid(row=0, column=0, columnspan=4)
@@ -122,7 +134,7 @@ btnMas=tk.Button(ventana, text="+", width=10, height=3,command=lambda:calcula(en
 btnMasMenos=tk.Button(ventana, text="+/-", width=10, height=3,command=lambda:cambiarsigno() ).grid (row=9, column=0, columnspan=1, padx=2, pady=1)
 btn0=tk.Button(ventana, text="0", width=10, height=3,command=lambda:concatenar("0") ).grid (row=9, column=1, columnspan=1)
 btnPunto=tk.Button(ventana, text=".", width=10, height=3,command=lambda:ponpunto() ).grid (row=9, column=2, columnspan=1)
-btnIgual=tk.Button(ventana, text="=", width=10, height=3,bg="blue" ).grid (row=9, column=3, columnspan=1)
+btnIgual=tk.Button(ventana, text="=", width=10, height=3,bg="blue",command=lambda:calcula(entrada.get(),"=") ).grid (row=9, column=3, columnspan=1)
 
 
 
